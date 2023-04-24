@@ -69,7 +69,7 @@ public class Main {
                 break;
         }
         /* PRINT INFO OF THIS GAME AND RUN IT*/
-        System.out.println("\n ***" + client.getTeamName() + "*** \n");
+        System.out.println("\n *** " + client.getTeamName() + " *** \n");
         System.out.println("Player: " + client.getPlayerName() + "\nTimeout: " + client.getTimeout()
                 + " [s]\nServer-ip: " + client.getServer_ip() + "\nShow: " + client.getShow() + "\n");
         client.run();

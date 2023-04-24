@@ -5,6 +5,7 @@ import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 
 /* MANAGEMENT OF EXCEPTION I/O AND IP HOST */
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class Bannerlord extends TablutClient {
 
@@ -29,7 +30,7 @@ public class Bannerlord extends TablutClient {
      * @author Andrea Castronovo
      * @see TablutClient
      */
-    public Bannerlord(String player) throws IOException{
+    public Bannerlord(String player) throws IOException {
         super(player, TEAM_NAME, timeout, server_ip);
         Bannerlord.player = player;
     }
@@ -65,7 +66,7 @@ public class Bannerlord extends TablutClient {
      * @author Andrea Castronovo
      * @see TablutClient
      */
-    public Bannerlord(String player, int timeout, String server_ip) throws IOException{
+    public Bannerlord(String player, int timeout, String server_ip) throws IOException, UnknownHostException{
         super(player, TEAM_NAME, timeout, server_ip);
         Bannerlord.player = player;
         Bannerlord.timeout = timeout;
@@ -85,7 +86,8 @@ public class Bannerlord extends TablutClient {
      * @author Andrea Castronovo
      * @see TablutClient
      */
-    public Bannerlord(String player, int timeout, String server_ip, boolean show) throws IOException{
+    public Bannerlord(String player, int timeout, String server_ip, boolean show)
+            throws IOException, UnknownHostException{
         super(player, TEAM_NAME, timeout, server_ip);
         Bannerlord.player = player;
         Bannerlord.timeout = timeout;
