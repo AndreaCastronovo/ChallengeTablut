@@ -7,14 +7,10 @@ import java.io.IOException;
 import it.unibo.ai.didattica.competition.tablut.Bannerlord.clients.Bannerlord;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
-        /* VARIABLE */
-        String player = "none";     // Role of player (W|B) must be specified from user
-        String ip = "localhost";    // Ip of server, local as default
-        int timeout = 60;           // Max time of game, 60' [s] as default
-        boolean show = false;       // Flag to show the depth and information about nodes expanded
 
+        /* CREATE BANNERLORD CLIENT */
+        Bannerlord client = null;
 
         /* MANAGEMENT OF INPUT */
         String USAGE = "\tUSAGE: ./runmyplayer <balck|white> <timeout-in-seconds> " +
@@ -28,13 +24,12 @@ public class Main {
                 break;
             case 1:
                 //Only role of player is specified
-                player = args[0];
+                client = new Bannerlord(args[0]);
                 break;
             case 2:
                 //Role and timeout are specified
-                player = args[0];
                 try {
-                    timeout = Integer.parseInt(args[1]);
+                    client = new Bannerlord(args[0], Integer.parseInt(args[1]));
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     System.out.printf("ERROR: TIMEOUT MUST BE AN INTEGER THAT REPRESENTING SECONDS.\n" + USAGE);
@@ -44,8 +39,7 @@ public class Main {
             case 3:
                 //Role, timeout and ip of server are specified
                 try {
-                    timeout = Integer.parseInt(args[1]);
-                    ip = args[2];
+                    client = new Bannerlord(args[0], Integer.parseInt(args[1]), args[2]);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                     System.out.printf("ERROR: TIMEOUT MUST BE AN INTEGER THAT REPRESENTING SECONDS.\n" + USAGE);
@@ -54,18 +48,16 @@ public class Main {
                 break;
             case 4:
                 //Role, timeout, ip and debug flag are specified
-                try {
-                    timeout = Integer.parseInt(args[1]);
-                    ip = args[2];
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                    System.out.printf("ERROR: TIMEOUT MUST BE AN INTEGER THAT REPRESENTING SECONDS.\n" + USAGE);
-                    System.exit(1);
-                }
-
-                if (args[3].equals("debug"))
-                    show = true;
-                else {
+                if (args[3].equals("debug")){
+                    try {
+                        client = new Bannerlord(args[0], Integer.parseInt(args[1]), args[2], true);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        System.out.printf("ERROR: TIMEOUT MUST BE AN INTEGER THAT REPRESENTING SECONDS.\n"
+                                + USAGE);
+                        System.exit(1);
+                    }
+                } else {
                     System.out.printf("ERROR: THE LAST ARGUMENT CAN BE ONLY 'debug'\n" + USAGE);
                     System.exit(1);
                 }
@@ -76,12 +68,10 @@ public class Main {
                 System.exit(1);
                 break;
         }
-
-        System.out.println("\n *** Team Bannerlord - Andrea Castronovo *** \n");
-        System.out.println("Player: " + player + "\nTimeout: " + timeout + "[s]\nServer-ip: " + ip
-                + "\nDebug: " + show + "\n");
-
-        Bannerlord client = new Bannerlord(player, timeout, ip, show);
+        /* PRINT INFO OF THIS GAME AND RUN IT*/
+        System.out.println("\n ***" + client.getTeamName() + "*** \n");
+        System.out.println("Player: " + client.getPlayerName() + "\nTimeout: " + client.getTimeout()
+                + " [s]\nServer-ip: " + client.getServer_ip() + "\nShow: " + client.getShow() + "\n");
         client.run();
     }
 }
