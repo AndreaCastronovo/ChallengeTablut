@@ -1,0 +1,14 @@
+apr 27, 2023 4:26:21 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: Accensione server
+apr 27, 2023 4:26:21 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: Partita di Tablut
+apr 27, 2023 4:26:21 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: Waiting for white connection..
+apr 27, 2023 4:26:32 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: White player connected
+apr 27, 2023 4:26:32 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: Lettura nome player bianco in corso..
+apr 27, 2023 4:27:06 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: White player name:	Bannerlord
+apr 27, 2023 4:27:06 PM it.unibo.ai.didattica.competition.tablut.server.Server run
+BUONO: Waiting for Black connection..

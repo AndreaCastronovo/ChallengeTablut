@@ -1,12 +1,23 @@
 package it.unibo.ai.didattica.competition.tablut.Bannerlord.clients;
 
 /* EXTENSION OF BASIC TABLUT CLIENT TO MY BANNERLORD CLIENT */
+import it.unibo.ai.didattica.competition.tablut.Bannerlord.searchTree.BannerlordSearch;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
+import it.unibo.ai.didattica.competition.tablut.domain.Action;
+import it.unibo.ai.didattica.competition.tablut.domain.GameAshtonTablut;
+import it.unibo.ai.didattica.competition.tablut.domain.State;
+import it.unibo.ai.didattica.competition.tablut.domain.StateTablut;
 
 /* MANAGEMENT OF EXCEPTION I/O AND IP HOST */
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+
+/**
+ * <b>Bannerlord</b> is my client class for the competition of A.I. Tablut Challenge 2023
+ * @author Andrea Castronovo
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for GitHub page of project.
+ */
 public class Bannerlord extends TablutClient {
 
     /* VARIABLE CLASS */
@@ -147,13 +158,136 @@ public class Bannerlord extends TablutClient {
     }
 
     /**
-     * Method of runnable interface.
+     * Method of Runnable interface which is implemented in TablutClient
      * <p></p>
      * @author Andrea Castronovo
      * @see it.unibo.ai.didattica.competition.tablut.server.Server
+     * @see Runnable
      */
     @Override
     public void run() {
+        /* SEND THE NAME TO THE SERVER */
+        try{
+            this.declareName();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        /* CREATE NEW STATE TABLUT and SET IT WHITE */
+        State state = new StateTablut(); // Representation of the board and the turn
+        state.setTurn(State.Turn.WHITE); // White makes first move
+
+        /* CREATE GAME ENGINE WITH ASHTON RULES*/
+        GameAshtonTablut gameAshtonTablut = new GameAshtonTablut(0, -1,
+                "logs", "white_ai", "black_ai");
+
+        /* LET'S PLAY! */
+        while (true){
+            /* READ ACTUAL STATE FROM SERVER */
+            try {
+                this.read();
+            }catch (Exception e){
+                e.printStackTrace();
+                System.exit(1);
+            }
+            /* UPDATE STATE WITH THE ONE JUST RECEIVED */
+            state = this.getCurrentState();
+            System.out.println(TEAM_NAME + " (" + player + ") CURRENT STATE is: \n" +
+                    state.toString());
+            /* CHECK WHICH PLAYER I AM, WHITE OR BLACK? */
+            if (this.getPlayer().equals(State.Turn.WHITE)){
+                // PLAYING AS WHITE
+
+                /* CHECK WHICH PLAYER HAVE TO DO THE NEXT MOVE */
+                switch (state.getTurn()) {
+                    case WHITE -> {
+                        // MY TURN AS WHITE PLAYER
+
+                        System.out.println(TEAM_NAME + ": i'm thinking which is the next move...\n");
+                        Action action = findNextMove(gameAshtonTablut, state); //Find the best next move
+                        System.out.println(action.toString());
+                        try {
+                            // TRY TO SEND AT SERVER THE NEXT MOVE
+                            this.write(action);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    case BLACK ->
+                        // OPPONENT TURN AS BLACK PLAYER
+
+                            System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
+                    case WHITEWIN -> {
+                        // I WIN AS WHITE PLAYER
+
+                        System.out.println(TEAM_NAME + ": I WON \n\n:D\n\n");
+                        System.exit(0);
+                    }
+                    case BLACKWIN -> {
+                        // I LOSE AS WHITE PLAYER
+
+                        System.out.println(TEAM_NAME + ": I LOST \n\n:'(\n\n");
+                        System.exit(0);
+                    }
+                    case DRAW -> {
+                        // NOBODY WON
+
+                        System.out.println(TEAM_NAME + ": DRAW \n\n:|\n\n");
+                        System.exit(0);
+                    }
+                }
+            } else {
+                // PLAYING AS BLACK
+
+                /* CHECK WHICH PLAYER HAVE TO DO THE NEXT MOVE */
+                switch (state.getTurn()){
+                    case BLACK -> {
+                        // MY TURN AS BLACK PLAYER
+
+                        System.out.println(TEAM_NAME + ": i'm thinking which is the next move...\n");
+                        Action action = findNextMove(gameAshtonTablut, state); //Find the best next move
+                        System.out.println(action.toString());
+                        try {
+                            // TRY TO SEND AT SERVER THE NEXT MOVE
+                            this.write(action);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    case WHITE ->
+                        // OPPONENT TURN AS WHITE PLAYER
+
+                            System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
+                    case BLACKWIN -> {
+                        // I WON AS WHITE PLAYER
+
+                        System.out.println(TEAM_NAME + ": I WON \n\n:D\n\n");
+                        System.exit(0);
+                    }
+                    case WHITEWIN -> {
+                        // I LOST AS WHITE PLAYER
+
+                        System.out.println(TEAM_NAME + ": I LOST \n\n:'(\n\n");
+                        System.exit(0);
+                    }
+                    case DRAW -> {
+                        // NOBODY WON
+
+                        System.out.println(TEAM_NAME + ": DRAW \n\n:|\n\n");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+    }
+
+    private Action findNextMove(GameAshtonTablut gameAshtonTablut, State state){
+
+        /* BANNERLORD SEARCH OBJECT TO SEARCH BEST MOVE */
+        BannerlordSearch bannerlordSearch = new BannerlordSearch(gameAshtonTablut, Double.MIN_VALUE, Double.MAX_VALUE, timeout - 1); // From game engine search a best move to do with min-MAX value
+                                                                                                                                          // and alpha-beta pruning, but within timeout (-1 second to be safe)
+        bannerlordSearch.setLogEnabled(show); // If show is enabled from args show log
+
+        return bannerlordSearch.makeDecision(state); // Return best move
     }
 }

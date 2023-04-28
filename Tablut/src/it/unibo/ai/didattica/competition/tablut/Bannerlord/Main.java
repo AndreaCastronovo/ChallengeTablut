@@ -6,6 +6,11 @@ import java.io.IOException;
 /* BANNERLORD CLASS CLIENT */
 import it.unibo.ai.didattica.competition.tablut.Bannerlord.clients.Bannerlord;
 
+/**
+ * <b>Main</b> is my principal run player for the competition of A.I. Tablut Challenge 2023
+ * @author Andrea Castronovo
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for github page of project.
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
 
@@ -68,7 +73,7 @@ public class Main {
                 System.exit(1);
                 break;
         }
-        /* PRINT INFO OF THIS GAME AND RUN IT*/
+        /* PRINT START INFO OF THIS GAME AND RUN IT */
         System.out.println("\n *** " + client.getTeamName() + " *** \n");
         System.out.println("Player: " + client.getPlayerName() + "\nTimeout: " + client.getTimeout()
                 + " [s]\nServer-ip: " + client.getServer_ip() + "\nShow: " + client.getShow() + "\n");
