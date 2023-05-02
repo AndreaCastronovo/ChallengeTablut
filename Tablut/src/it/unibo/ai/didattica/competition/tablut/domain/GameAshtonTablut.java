@@ -806,10 +806,15 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(k,j))){
 							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
 							break;
+						}else if(citadels.contains(state.getBox(i,j)) &&
+								citadels.contains(state.getBox(k,j)) && (i - k > 7)){
+							// PAWN WHICH IS IN CITADELS TRY TO MOVE ON CITADELS WHICH BE IN THE OPPOSITE
+							// OF BOARD, NOT ALLOWED!!!
+							break;
 						}else {
 							/* EMPTY CELL? */
 							if (state.getPawn(k,j).equalsPawn(State.Pawn.EMPTY.toString())){
-								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
+								// PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
 
 								String from = state.getBox(i, j);
 								String to = state.getBox(k, j);
@@ -821,9 +826,8 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 									e.printStackTrace();
 								}
 
-								//CHECK IF MOVE IS POSSIBLE
-								if(isPossibleMove(state.clone(), action))
-									possibleActions.add(action);
+								// ADD POSSIBLE ACTION
+								possibleActions.add(action);
 							}else {
 								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
 								break;
@@ -838,6 +842,11 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(k,j))){
 							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
 							break;
+						}else if(citadels.contains(state.getBox(i,j)) &&
+								citadels.contains(state.getBox(k,j)) && (k - i > 7)){
+							// PAWN WHICH IS IN CITADELS TRY TO MOVE ON CITADELS WHICH BE IN THE OPPOSITE
+							// OF BOARD, NOT ALLOWED!!!
+							break;
 						}else {
 							/* EMPTY CELL? */
 							if (state.getPawn(k,j).equalsPawn(State.Pawn.EMPTY.toString())){
@@ -853,9 +862,8 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 									e.printStackTrace();
 								}
 
-								//CHECK IF MOVE IS POSSIBLE
-								if(isPossibleMove(state.clone(), action))
-									possibleActions.add(action);
+								// ADD POSSIBLE ACTION
+								possibleActions.add(action);
 							}else {
 								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
 								break;
@@ -869,7 +877,12 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(i,k))){
 							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
 							break;
-						}else {
+						}else if(citadels.contains(state.getBox(i,j)) &&
+								citadels.contains(state.getBox(i,k)) && (j - k > 7)){
+							// PAWN WHICH IS IN CITADELS TRY TO MOVE ON CITADELS WHICH BE IN THE OPPOSITE
+							// OF BOARD, NOT ALLOWED!!!
+							break;
+						} else {
 							/* EMPTY CELL? */
 							if (state.getPawn(i,k).equalsPawn(State.Pawn.EMPTY.toString())){
 								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
@@ -884,9 +897,8 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 									e.printStackTrace();
 								}
 
-								//CHECK IF MOVE IS POSSIBLE
-								if(isPossibleMove(state.clone(), action))
-									possibleActions.add(action);
+								// ADD POSSIBLE ACTION
+								possibleActions.add(action);
 							}else {
 								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
 								break;
@@ -900,7 +912,12 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(i,k))){
 							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
 							break;
-						}else {
+						} else if(citadels.contains(state.getBox(i,j)) &&
+								citadels.contains(state.getBox(i,k)) && (k - j > 7)){
+							// PAWN WHICH IS IN CITADELS TRY TO MOVE ON CITADELS WHICH BE IN THE OPPOSITE
+							// OF BOARD, NOT ALLOWED!!!
+							break;
+						} else {
 							/* EMPTY CELL? */
 							if (state.getPawn(i,k).equalsPawn(State.Pawn.EMPTY.toString())){
 								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
@@ -915,9 +932,8 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 									e.printStackTrace();
 								}
 
-								//CHECK IF MOVE IS POSSIBLE
-								if(isPossibleMove(state.clone(), action))
-									possibleActions.add(action);
+								// ADD POSSIBLE ACTION
+								possibleActions.add(action);
 							}else {
 								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
 								break;
@@ -932,18 +948,63 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 		return possibleActions;
 	}
 
+	/**
+	 * Method that performs an action in a given state and returns the resulting state
+	 *
+	 * @param state Current state
+	 * @param action Action admissible on the given state
+	 *
+	 * @return State obtained after performing the action
+	 */
 	@Override
 	public State getResult(State state, Action action) {
-		return null;
+		// MOVE PAWN
+		state = this.movePawn(state.clone(), action);
+
+		// CHECK NEW STATE FOR ANY CAPTURE
+		if (state.getTurn().equalsTurn("W"))
+			state = this.checkCaptureBlack(state, action);
+		else if (state.getTurn().equalsTurn("B"))
+			state = this.checkCaptureWhite(state, action);
+
+		return state;
 	}
 
+	/**
+	 * Check if a state is terminal, since a player has either won or drawn (i.e. the game ends)
+	 *
+	 * @param state Current state of the game
+	 *
+	 * @return true if the current state is terminal, otherwise false
+	 */
 	@Override
 	public boolean isTerminal(State state) {
-		return false;
+		return state.getTurn().equals(State.Turn.WHITEWIN) ||
+				state.getTurn().equals(State.Turn.BLACKWIN) ||
+				state.getTurn().equals(State.Turn.DRAW);
 	}
 
+	/**
+	 * Method to evaluate a state using heuristics
+	 *
+	 * @param state	Current state
+	 * @param turn	Player that want to find the best moves in the search space
+	 *
+	 * @return Evaluation of the state
+	 */
 	@Override
 	public double getUtility(State state, State.Turn turn) {
+		// Terminal state
+		if ((turn.equals(State.Turn.BLACK) && state.getTurn().equals(State.Turn.BLACKWIN))
+				|| (turn.equals(State.Turn.WHITE) && state.getTurn().equals(State.Turn.WHITEWIN)))
+			return Double.POSITIVE_INFINITY; // Win
+		else if ((turn.equals(State.Turn.BLACK) && state.getTurn().equals(State.Turn.WHITEWIN))
+				|| (turn.equals(State.Turn.WHITE) && state.getTurn().equals(State.Turn.BLACKWIN)))
+			return Double.NEGATIVE_INFINITY; // Lose
+
+		/*// Non-terminal state => get Heuristics for the current state
+		Heuristics heuristics = turn.equals(State.Turn.WHITE) ? new WhiteHeuristics(state) : new BlackHeuristics(state);
+		return heuristics.evaluateState();*/
 		return 0;
 	}
 }

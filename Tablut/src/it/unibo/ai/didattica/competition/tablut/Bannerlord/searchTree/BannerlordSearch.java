@@ -23,6 +23,24 @@ public class BannerlordSearch extends IterativeDeepeningAlphaBetaSearch<State, A
         super(game, utilMin, utilMax, time);
     }
 
+    /*/**
+     * Method that estimates the value for states. This implementation returns the utility value for
+     * terminal states and heuristic value for non-terminal states.
+     *
+     * @param state the current state
+     * @param turn the player who has to make the next move
+     *
+     * @return the score of this state (double)
+     */
+   /* @Override
+    protected double eval(State state, State.Turn turn) {
+        // MAKE heuristicEvaluationUsed = true IF THE STATE EVALUATED ISN'T TERMINAL
+        super.eval(state, turn);
+
+        // RETURN HEURISTIC VALUE FOR THE GIVEN STATE
+        return game.getUtility(state, turn);
+    }*/
+
     /**
      * Method controlling the search. It is based on minmax with iterative deepening and tries to make
      * to a good decision in limited time. It is overrided to print metrics.

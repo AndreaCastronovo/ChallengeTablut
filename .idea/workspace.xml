@@ -3,9 +3,31 @@
   <component name="ChangeListManager">
     <list default="true" id="85d8d735-4ac0-49dd-afa2-dc639d1b267c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/clients/Bannerlord.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/clients/Bannerlord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tablut/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/searchTree/BannerlordSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/searchTree/BannerlordSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682330454999_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682605436456_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682605544819_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682605581562_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682679704239_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682952258648_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682952628395_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/1682952997638_systemLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_Bannerlord_vs_Bannerlord_1682679819641_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_random_vs_Bannerlord_1682952311155_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_random_vs_Bannerlord_1682952661777_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_random_vs_Bannerlord_1682953021028_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_random_vs_random_1682330472268_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682605445959_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682605498756_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682605561275_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682605716108_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682679750641_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682679818357_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682952310979_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682952661133_gameLog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/_white_ai_vs_black_ai_1682953020406_gameLog.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +77,7 @@
     <configuration name="BlackMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.BlackMain" />
       <module name="ChallengeTablut" />
+      <option name="PROGRAM_PARAMETERS" value="1" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.*" />
@@ -68,6 +91,7 @@
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.server.Server" />
       <module name="ChallengeTablut" />
+      <option name="PROGRAM_PARAMETERS" value="-g" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="it.unibo.ai.didattica.competition.tablut.server.*" />
@@ -78,31 +102,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TablutRandomWhiteClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.client.TablutRandomWhiteClient" />
+    <configuration name="WhiteMain" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.WhiteMain" />
       <module name="ChallengeTablut" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.unibo.ai.didattica.competition.tablut.client.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PROGRAM_PARAMETERS" value="1" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WHITE" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.Main" />
-      <module name="ChallengeTablut" />
-      <option name="PROGRAM_PARAMETERS" value="WHITE" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <list>
+      <item itemvalue="Application.WhiteMain" />
+      <item itemvalue="Application.BlackMain" />
+      <item itemvalue="Application.Server" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.BlackMain" />
-        <item itemvalue="Application.TablutRandomWhiteClient" />
         <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
