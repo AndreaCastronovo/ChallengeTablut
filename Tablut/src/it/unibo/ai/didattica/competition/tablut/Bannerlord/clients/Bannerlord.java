@@ -200,7 +200,7 @@ public class Bannerlord extends TablutClient {
 
                 /* CHECK WHICH PLAYER HAVE TO DO THE NEXT MOVE */
                 switch (state.getTurn()) {
-                    case WHITE -> {
+                    case WHITE:
                         // MY TURN AS WHITE PLAYER
 
                         System.out.println(TEAM_NAME + ": i'm thinking which is the next move...\n");
@@ -212,36 +212,37 @@ public class Bannerlord extends TablutClient {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }
-                    case BLACK ->
+                        break;
+                    case BLACK:
                         // OPPONENT TURN AS BLACK PLAYER
 
-                            System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
-                    case WHITEWIN -> {
-                        // I WIN AS WHITE PLAYER
+                        System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
+                        break;
+                    case WHITEWIN:
+                        // I WON AS WHITE PLAYER
 
                         System.out.println(TEAM_NAME + ": I WON \n\n:D\n\n");
                         System.exit(0);
-                    }
-                    case BLACKWIN -> {
-                        // I LOSE AS WHITE PLAYER
+                        break;
+                    case BLACKWIN:
+                        // I LOST AS WHITE PLAYER
 
                         System.out.println(TEAM_NAME + ": I LOST \n\n:'(\n\n");
                         System.exit(0);
-                    }
-                    case DRAW -> {
-                        // NOBODY WON
+                        break;
+                    default:
+                        // DRAW ---> NOBODY WON
 
                         System.out.println(TEAM_NAME + ": DRAW \n\n:|\n\n");
                         System.exit(0);
-                    }
+                        break;
                 }
             } else {
                 // PLAYING AS BLACK
 
                 /* CHECK WHICH PLAYER HAVE TO DO THE NEXT MOVE */
                 switch (state.getTurn()){
-                    case BLACK -> {
+                    case BLACK:
                         // MY TURN AS BLACK PLAYER
 
                         System.out.println(TEAM_NAME + ": i'm thinking which is the next move...\n");
@@ -253,29 +254,30 @@ public class Bannerlord extends TablutClient {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }
-                    case WHITE ->
+                        break;
+                    case WHITE:
                         // OPPONENT TURN AS WHITE PLAYER
 
-                            System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
-                    case BLACKWIN -> {
+                        System.out.println(TEAM_NAME + ": i'm waiting to opponent move choice....\n");
+                        break;
+                    case BLACKWIN:
                         // I WON AS WHITE PLAYER
 
                         System.out.println(TEAM_NAME + ": I WON \n\n:D\n\n");
                         System.exit(0);
-                    }
-                    case WHITEWIN -> {
+                        break;
+                    case WHITEWIN:
                         // I LOST AS WHITE PLAYER
 
                         System.out.println(TEAM_NAME + ": I LOST \n\n:'(\n\n");
                         System.exit(0);
-                    }
-                    case DRAW -> {
+                        break;
+                    case DRAW:
                         // NOBODY WON
 
                         System.out.println(TEAM_NAME + ": DRAW \n\n:|\n\n");
                         System.exit(0);
-                    }
+                        break;
                 }
             }
         }
@@ -284,7 +286,7 @@ public class Bannerlord extends TablutClient {
     private Action findNextMove(GameAshtonTablut gameAshtonTablut, State state){
 
         /* BANNERLORD SEARCH OBJECT TO SEARCH BEST MOVE */
-        BannerlordSearch bannerlordSearch = new BannerlordSearch(gameAshtonTablut, Double.MIN_VALUE, Double.MAX_VALUE, timeout - 1); // From game engine search a best move to do with min-MAX value
+        BannerlordSearch bannerlordSearch = new BannerlordSearch(gameAshtonTablut, Double.MIN_VALUE, Double.MAX_VALUE, timeout - 1); // From game engine search the best move to do with min-MAX value
                                                                                                                                           // and alpha-beta pruning, but within timeout (-1 second to be safe)
         bannerlordSearch.setLogEnabled(show); // If show is enabled from args show log
 

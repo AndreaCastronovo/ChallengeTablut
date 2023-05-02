@@ -1,6 +1,7 @@
 package it.unibo.ai.didattica.competition.tablut.domain;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,11 +18,10 @@ import it.unibo.ai.didattica.competition.tablut.exceptions.*;
  * 
  * Game engine inspired by the Ashton Rules of Tablut
  * 
- * 
- * @author A. Piretti, Andrea Galassi
+ * @author A. Piretti, Andrea Galassi (Extended by Bannerlord)
  *
  */
-public class GameAshtonTablut implements Game {
+public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game<State, Action, State.Turn> {
 
 	/**
 	 * Number of repeated states that can occur before a draw
@@ -750,4 +750,200 @@ public class GameAshtonTablut implements Game {
 	}
 
 
+	/* ************************************************************************************************** */
+	/* 						 IMPLEMENTS OF AIMA ITERATIVE DEEPENING SEARCH								  */
+
+	@Override
+	public State getInitialState() {
+		return null;
+	}
+
+	@Override
+	public State.Turn[] getPlayers() {
+		return State.Turn.values();
+	}
+
+	/**
+	 * Get the player who must make the next move
+	 *
+	 * @param state Current state of the game
+	 *
+	 * @return The turn of the game (W = WHITE, B = BLACK)
+	 */
+	@Override
+	public State.Turn getPlayer(State state) {
+		return state.getTurn();
+	}
+
+	/**
+	 * Method that compute a list of all possible actions for the current player
+	 * according to the rules of the game
+	 *
+	 * @param state Current state of the game
+	 *
+	 * @return List of all the Action allowed from current state for each pawn of the player
+	 */
+	@Override
+	public List<Action> getActions(State state) {
+
+		/*  READ ACTUAL TURN FROM STATE */
+		State.Turn turn = state.getTurn(); // Get turn from actual state to know which player has to do the move
+		List<Action> possibleActions = new ArrayList<Action>(); // List of possible actions
+
+		/* GO ALL OVER THE BOARD & ---> */
+		for (int i = 0; i < state.getBoard().length; i++){	// ROWS
+
+			for (int j = 0; j < state.getBoard().length; j++){	// COLUMNS
+				State.Pawn pawn = state.getPawn(i, j);
+
+				/* ---> & CHOOSE ONLY THE PAWNS OF MY PLAYER [(WHITE & king) | BLACK] */
+				if (pawn.toString().equals(turn.toString())
+						|| (pawn.equals(State.Pawn.KING) && turn.equals(State.Turn.WHITE))){
+
+					/* SEARCH ACTIONS ON TOP OF PAWN */
+					for (int k = i-1; k >= 0; k--){
+						/* CITADELS (BLACK CAMP) ? */
+						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(k,j))){
+							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
+							break;
+						}else {
+							/* EMPTY CELL? */
+							if (state.getPawn(k,j).equalsPawn(State.Pawn.EMPTY.toString())){
+								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
+
+								String from = state.getBox(i, j);
+								String to = state.getBox(k, j);
+
+								Action action = null;
+								try {
+									action = new Action(from, to, turn); // Try to create new action
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								//CHECK IF MOVE IS POSSIBLE
+								if(isPossibleMove(state.clone(), action))
+									possibleActions.add(action);
+							}else {
+								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
+								break;
+							}
+						}
+
+					}
+
+					/* SEARCH ACTIONS ON BOTTOM OF PAWN */
+					for (int k = i+1; k < state.getBoard().length; k++){
+						/* CITADELS (BLACK CAMP) ? */
+						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(k,j))){
+							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
+							break;
+						}else {
+							/* EMPTY CELL? */
+							if (state.getPawn(k,j).equalsPawn(State.Pawn.EMPTY.toString())){
+								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
+
+								String from = state.getBox(i, j);
+								String to = state.getBox(k, j);
+
+								Action action = null;
+								try {
+									action = new Action(from, to, turn); // Try to create new action
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								//CHECK IF MOVE IS POSSIBLE
+								if(isPossibleMove(state.clone(), action))
+									possibleActions.add(action);
+							}else {
+								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
+								break;
+							}
+						}
+					}
+
+					/* SEARCH ACTIONS ON LEFT OF PAWN */
+					for (int k = j-1; k >= 0; k--){
+						/* CITADELS (BLACK CAMP) ? */
+						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(i,k))){
+							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
+							break;
+						}else {
+							/* EMPTY CELL? */
+							if (state.getPawn(i,k).equalsPawn(State.Pawn.EMPTY.toString())){
+								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
+
+								String from = state.getBox(i, j);
+								String to = state.getBox(i, k);
+
+								Action action = null;
+								try {
+									action = new Action(from, to, turn); // Try to create new action
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								//CHECK IF MOVE IS POSSIBLE
+								if(isPossibleMove(state.clone(), action))
+									possibleActions.add(action);
+							}else {
+								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
+								break;
+							}
+						}
+					}
+
+					/* SEARCH ACTIONS ON RIGHT OF PAWN */
+					for (int k = j+1; k < state.getBoard().length; k++){
+						/* CITADELS (BLACK CAMP) ? */
+						if (!citadels.contains(state.getBox(i,j)) && citadels.contains(state.getBox(i,k))){
+							// PAWN WHICH IS OUT OF CITADELS TRY TO MOVE ON ONE OF THEM, NOT ALLOWED!!!
+							break;
+						}else {
+							/* EMPTY CELL? */
+							if (state.getPawn(i,k).equalsPawn(State.Pawn.EMPTY.toString())){
+								//PAWN TRY TO MOVE ON EMPTY CELL, ALLOWED!
+
+								String from = state.getBox(i, j);
+								String to = state.getBox(i, k);
+
+								Action action = null;
+								try {
+									action = new Action(from, to, turn); // Try to create new action
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+
+								//CHECK IF MOVE IS POSSIBLE
+								if(isPossibleMove(state.clone(), action))
+									possibleActions.add(action);
+							}else {
+								//PAWN TRY TO MOVE ON OR CROSS OCCUPIED CELL OR THRONE, NOT ALLOWED!
+								break;
+							}
+						}
+					}
+				}
+
+			}
+		}
+
+		return possibleActions;
+	}
+
+	@Override
+	public State getResult(State state, Action action) {
+		return null;
+	}
+
+	@Override
+	public boolean isTerminal(State state) {
+		return false;
+	}
+
+	@Override
+	public double getUtility(State state, State.Turn turn) {
+		return 0;
+	}
 }
