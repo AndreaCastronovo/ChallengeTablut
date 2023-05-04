@@ -1006,12 +1006,13 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 			return Double.NEGATIVE_INFINITY; // Lose
 
 		// Non-terminal state => get Heuristics for the current state
-		BannerlordHeuristics heuristics = null;
+		/*BannerlordHeuristics heuristics = null;
 		if (turn.equals(State.Turn.WHITE))
 			heuristics = new W_BannerlordHeuristics(state); // PLAY AS WHITE
 		else
 			heuristics = new B_BannerlordHeuristics(state); // PLAY AS BLACK
 
-		return heuristics.evaluateState();
+		return heuristics.evaluateState();*/
+		return 0;
 	}
 }
