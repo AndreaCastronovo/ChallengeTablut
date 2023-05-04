@@ -284,10 +284,10 @@ public class Bannerlord extends TablutClient {
     }
 
     private Action findNextMove(GameAshtonTablut gameAshtonTablut, State state){
-
         /* BANNERLORD SEARCH OBJECT TO SEARCH BEST MOVE */
-        BannerlordSearch bannerlordSearch = new BannerlordSearch(gameAshtonTablut, Double.MIN_VALUE, Double.MAX_VALUE, timeout - 1); // From game engine search the best move to do with min-MAX value
-                                                                                                                                          // and alpha-beta pruning, but within timeout (-1 second to be safe)
+        BannerlordSearch bannerlordSearch = new BannerlordSearch(gameAshtonTablut, Double.MIN_VALUE,
+                Double.MAX_VALUE, super.getTimeout() - 1); // From game engine search the best move to do with min-MAX value and alpha-beta pruning, but within timeout (-1 second to be safe)
+
         bannerlordSearch.setLogEnabled(show); // If show is enabled from args show log
 
         return bannerlordSearch.makeDecision(state); // Return best move

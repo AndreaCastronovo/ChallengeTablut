@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/Tablut/lib/gson-2.2.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/Tablut/lib/commons-cli-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Tablut/lib/aima-core.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

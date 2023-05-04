@@ -12,6 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics.B_BannerlordHeuristics;
+import it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics.BannerlordHeuristics;
+import it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics.W_BannerlordHeuristics;
 import it.unibo.ai.didattica.competition.tablut.exceptions.*;
 
 /**
@@ -1002,9 +1005,13 @@ public class GameAshtonTablut implements Game, aima.core.search.adversarial.Game
 				|| (turn.equals(State.Turn.WHITE) && state.getTurn().equals(State.Turn.BLACKWIN)))
 			return Double.NEGATIVE_INFINITY; // Lose
 
-		/*// Non-terminal state => get Heuristics for the current state
-		Heuristics heuristics = turn.equals(State.Turn.WHITE) ? new WhiteHeuristics(state) : new BlackHeuristics(state);
-		return heuristics.evaluateState();*/
-		return 0;
+		// Non-terminal state => get Heuristics for the current state
+		BannerlordHeuristics heuristics = null;
+		if (turn.equals(State.Turn.WHITE))
+			heuristics = new W_BannerlordHeuristics(state); // PLAY AS WHITE
+		else
+			heuristics = new B_BannerlordHeuristics(state); // PLAY AS BLACK
+
+		return heuristics.evaluateState();
 	}
 }
