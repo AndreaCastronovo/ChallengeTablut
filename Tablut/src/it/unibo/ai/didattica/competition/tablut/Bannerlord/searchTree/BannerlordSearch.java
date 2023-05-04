@@ -32,14 +32,14 @@ public class BannerlordSearch extends IterativeDeepeningAlphaBetaSearch<State, A
      *
      * @return the score of this state (double)
      */
-   /* @Override
+   @Override
     protected double eval(State state, State.Turn turn) {
         // MAKE heuristicEvaluationUsed = true IF THE STATE EVALUATED ISN'T TERMINAL
         super.eval(state, turn);
 
         // RETURN HEURISTIC VALUE FOR THE GIVEN STATE
         return game.getUtility(state, turn);
-    }*/
+    }
 
     /**
      * Method controlling the search. It is based on minmax with iterative deepening and tries to make

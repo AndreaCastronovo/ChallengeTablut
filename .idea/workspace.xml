@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85d8d735-4ac0-49dd-afa2-dc639d1b267c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Tablut/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/B_BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/B_BannerlordHeuristics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/BannerlordHeuristics.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/W_BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/W_BannerlordHeuristics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/searchTree/BannerlordSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/searchTree/BannerlordSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.java" afterDir="false" />
     </list>
@@ -56,7 +59,15 @@
       <recent name="$PROJECT_DIR$/Tablut/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.TablutHumanBlackClient">
+  <component name="RunManager" selected="Application.WhiteMain">
+    <configuration name="BlackMain" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.BlackMain" />
+      <module name="ChallengeTablut" />
+      <option name="PROGRAM_PARAMETERS" value="20 localhost debug" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Server" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.server.Server" />
       <module name="ChallengeTablut" />
@@ -94,6 +105,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.WhiteMain" />
+      <item itemvalue="Application.BlackMain" />
       <item itemvalue="Application.Server" />
       <item itemvalue="Application.TablutHumanBlackClient" />
     </list>
