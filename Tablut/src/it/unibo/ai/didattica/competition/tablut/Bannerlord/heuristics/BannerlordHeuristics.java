@@ -2,18 +2,13 @@ package it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics;
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.IllegalFormatCodePointException;
-import java.util.List;
-
 public abstract class BannerlordHeuristics {
 
     protected State state;
     protected State.Pawn[][] board;
 
-    protected class Bool_Doub{
-        boolean bool = false; double doub = 0.0;
+    public static class Bool_Doub{
+        boolean bool = true; double doub = 0.0;
 
         public boolean getBool(){
             return this.bool;
@@ -296,20 +291,38 @@ public abstract class BannerlordHeuristics {
         return true;
     }
 
-    /**
-     * @return check if king can be eaten from enemies
-     */
-    public Bool_Doub kingCanDie(int[] kingPos){
-        Bool_Doub bool_doub = new Bool_Doub();
+    public boolean isKingNextThrone(int[] kingPos){
+        int rawKing = kingPos[0];
+        int columnKing = kingPos[1];
 
-        /* FOUR ENEMIES SURROUNDED KING */
-        // 1 ---> -10   // 2 ---> -30   // 3 ---> -60
+        if (rawKing == 4){
+            return columnKing == 3 || columnKing == 5;
+        }
+        if (columnKing == 4){
+            return rawKing == 3 || rawKing == 5;
+        }
 
-        /* THREE ENEMIES SURROUNDED KING NEXT TO THRONE */
-        // 1 ---> -30   // 2 ---> -60
+        return false;
+    }
 
-        /* TWO ENEMIES SURROUNDED KING */
-        // 1 ---> -MAXVALUE
+    public boolean isKingOutBoard(int[] kingPos){
+        int rawKing = kingPos[0];
+        int columnKing = kingPos[1];
+
+        return rawKing == 0 || rawKing == board.length - 1 ||
+                columnKing == 0 || columnKing == board.length - 1;
+    }
+
+    public boolean isKingNearCitadels(int[] kingPos){
+        int rawKing = kingPos[0];
+        int columnKing = kingPos[1];
+
+        return (rawKing == 1 && (columnKing == 3 || columnKing == 5)) ||
+                (columnKing == 4 && (rawKing == 2 || rawKing == 6)) ||
+                (rawKing == 3 && (columnKing == 1 || columnKing == 7)) ||
+                (rawKing == 4 && (columnKing == 2 || columnKing == 6)) ||
+                (rawKing == 5 && (columnKing == 1 || columnKing == 7)) ||
+                (rawKing == 7 && (columnKing == 3 || columnKing == 5));
     }
 
     //-----------------------------------------------------------------------------------------------
