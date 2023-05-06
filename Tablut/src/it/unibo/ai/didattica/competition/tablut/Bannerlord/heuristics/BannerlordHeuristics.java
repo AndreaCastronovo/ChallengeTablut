@@ -313,6 +313,14 @@ public abstract class BannerlordHeuristics {
                 columnKing == 0 || columnKing == board.length - 1;
     }
 
+    public boolean isPawnOutBoard(int[] pawnPos){
+        int rawPawn = pawnPos[0];
+        int columnPawn = pawnPos[1];
+
+        return rawPawn == 0 || rawPawn == board.length - 1 ||
+                columnPawn == 0 || columnPawn == board.length - 1;
+    }
+
     public boolean isKingNearCitadels(int[] kingPos){
         int rawKing = kingPos[0];
         int columnKing = kingPos[1];
@@ -323,6 +331,30 @@ public abstract class BannerlordHeuristics {
                 (rawKing == 4 && (columnKing == 2 || columnKing == 6)) ||
                 (rawKing == 5 && (columnKing == 1 || columnKing == 7)) ||
                 (rawKing == 7 && (columnKing == 3 || columnKing == 5));
+    }
+
+    public boolean isBalckNextThrone(int i, int j){
+        int rawBlack = i;
+        int columnBlack = j;
+
+        if (rawBlack == 4){
+            return columnBlack == 3 || columnBlack == 5;
+        }
+        if (columnBlack == 4){
+            return rawBlack == 3 || rawBlack == 5;
+        }
+
+        return false;
+    }
+
+    public boolean isBlackNearCitadels(int i, int j){
+
+        return (i == 1 && (j == 3 || j == 5)) ||
+                (j == 4 && (i == 2 || i == 6)) ||
+                (i == 3 && (j == 1 || j == 7)) ||
+                (i == 4 && (j == 2 || j == 6)) ||
+                (i == 5 && (j == 1 || j == 7)) ||
+                (i == 7 && (j == 3 || j == 5));
     }
 
     //-----------------------------------------------------------------------------------------------

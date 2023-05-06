@@ -47,7 +47,191 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
             stateEval += 5; // Too risky stay out
         }
 
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board.length; j++){
+                if (board[i][j].equals(State.Pawn.BLACK)) {
+                    stateEval += canWhiteEatBlack_Surround(i,j);
+                    stateEval += canWhiteEatBlack_Throne(i,j);
+                    stateEval += canWhiteEatBlack_Citadels(i,j);
+                }
+            }
+        }
+
         return stateEval;
+    }
+
+    public double canWhiteEatBlack_Citadels(int i, int j){
+        double eval = 0.0;
+
+        if (isBlackNearCitadels(i,j)){
+            if (i == 1 && j == 3){
+                if (board[1][2].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[2][3].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 1 && j == 5){
+                if (board[1][6].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[2][5].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 2 && j == 4){
+                if (board[3][4].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 3 && j == 1){
+                if (board[2][1].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[3][2].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 5 && j == 1){
+                if (board[5][2].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[6][1].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 4 && j == 2){
+                if (board[4][3].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 3 && j == 7){
+                if (board[2][7].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[3][6].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 4 && j == 6){
+                if (board[4][5].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 5 && j == 7){
+                if (board[5][6].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[6][7].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 7 && j == 3){
+                if (board[7][2].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[6][3].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 6 && j == 4){
+                if (board[5][4].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            // ------------------------------------------------
+
+            if (i == 7 && j == 5){
+                if (board[6][5].equals(State.Pawn.WHITE))
+                    eval = 80;
+                if (board[7][6].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+        }
+
+        return eval;
+    }
+
+    public double canWhiteEatBlack_Surround(int rawBlack, int columnBlack){
+        double eval = 0.0;
+        int[] blackPos = new int[2];
+        blackPos[0] = rawBlack;
+        blackPos[1] = columnBlack;
+
+        if (!isPawnOutBoard(blackPos)){
+            /* TOP TO BOTTOM */
+            if (board[rawBlack-1][columnBlack].equals(State.Pawn.WHITE)){
+                eval = 10;
+                if (board[rawBlack+1][columnBlack].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            /* BOTTOM TO TOP*/
+            if (board[rawBlack+1][columnBlack].equals(State.Pawn.WHITE)){
+                eval = 10;
+                if (board[rawBlack-1][columnBlack].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            /* LEFT TO RIGHT*/
+            if (board[rawBlack][columnBlack-1].equals(State.Pawn.WHITE)){
+                eval = 10;
+                if (board[rawBlack][columnBlack+1].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+
+            /* RIGHT TO LEFT*/
+            if (board[rawBlack][columnBlack+1].equals(State.Pawn.WHITE)){
+                eval = 10;
+                if (board[rawBlack][columnBlack-1].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+        }
+
+        return eval;
+    }
+
+    public double canWhiteEatBlack_Throne(int i, int j){
+        double eval = 0.0;
+
+        if (isBalckNextThrone(i,j)){
+            // ABOVE
+            if (i == 3 && j == 4){
+                if (board[2][4].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+            // BELOW
+            if (i == 4 && j == 5){
+                if (board[4][6].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+            // LEFT
+            if (i == 5 && j == 4){
+                if (board[6][4].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+            // RIGHT
+            if (i == 4 && j == 3){
+                if (board[4][2].equals(State.Pawn.WHITE))
+                    eval = 80;
+            }
+        }
+
+        return eval;
     }
 
     /**
