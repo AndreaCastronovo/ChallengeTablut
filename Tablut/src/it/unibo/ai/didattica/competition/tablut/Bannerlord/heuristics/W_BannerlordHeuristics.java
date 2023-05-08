@@ -17,10 +17,10 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
         int[] kingPos = kingPosition();
 
         /* CHECK IF KING CAN DO SAFE WIN IN TWO MOVES */
-        if (isKingThrone(kingPos)){
-            if (isWinSafe()){
-                stateEval += Double.MAX_VALUE; // LET'S GO WIN
-            }
+        if (isWinSafe()){
+            stateEval += 900; // LET'S GO WIN
+            if (isKingBeforeWin(kingPos))
+                stateEval = Double.MAX_VALUE;
         }
 
         /* THROW AWAY KING CAPTURE */
@@ -43,8 +43,6 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
             double whiteAlive = (double) numbOfWhite/8;
             stateEval += (0.99 - blackAlive) * 800;
             stateEval += (whiteAlive - 0.9) * 100;
-        } else{
-            stateEval += 5; // Too risky stay out
         }
 
         for (int i = 0; i < board.length; i++){
@@ -57,7 +55,21 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
             }
         }
 
+        if (isKingOutBoard(kingPos)){
+            stateEval = Double.POSITIVE_INFINITY;
+        }
+
+        if (Double.isNaN(stateEval))
+            stateEval = Double.NEGATIVE_INFINITY;
+
         return stateEval;
+    }
+
+    public boolean isKingBeforeWin(int[] kingPos){
+        return (kingPos[0] == 6 && kingPos[1] == 4) ||
+                (kingPos[0] == 4 && kingPos[1] == 6) ||
+                (kingPos[0] == 2 && kingPos[1] == 4) ||
+                (kingPos[0] == 4 && kingPos[1] == 2);
     }
 
     public double canWhiteEatBlack_Citadels(int i, int j){

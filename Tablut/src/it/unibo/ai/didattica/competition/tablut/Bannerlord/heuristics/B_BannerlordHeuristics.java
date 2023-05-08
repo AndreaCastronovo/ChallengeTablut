@@ -5,6 +5,8 @@ import it.unibo.ai.didattica.competition.tablut.domain.State;
 
 import java.util.Arrays;
 
+import static java.lang.Double.NaN;
+
 public class B_BannerlordHeuristics extends BannerlordHeuristics{
     public B_BannerlordHeuristics(State state) {
         super(state);
@@ -15,10 +17,8 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
         int[] kingPos = kingPosition();
 
         /* CHECK IF KING CAN DO SAFE WIN IN TWO MOVES */
-        if (isKingThrone(kingPos)){
-            if (isWinSafe()){
-                stateEval += Double.NEGATIVE_INFINITY; // Block white win
-            }
+        if (isWinSafe()){
+            stateEval = Double.NEGATIVE_INFINITY; // Block white win
         }
 
         /* TAKE KING CAPTURE */
@@ -41,8 +41,11 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
         int numbOfWhite = state.getNumberOf(State.Pawn.WHITE);
         double blackAlive = (double) numbOfBlack/16;
         double whiteAlive = (double) numbOfWhite/8;
-        stateEval += (0.99 - whiteAlive) * 100;
+        stateEval += (0.99 - whiteAlive) * 200;
         stateEval += (blackAlive - 0.9) * 60;
+
+        if(Double.isNaN(stateEval))
+            stateEval = Double.NEGATIVE_INFINITY;
 
         return stateEval;
     }
