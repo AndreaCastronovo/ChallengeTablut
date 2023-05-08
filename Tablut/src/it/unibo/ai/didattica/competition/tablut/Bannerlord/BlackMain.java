@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * <b>Main</b> is my principal BlackRun player for the competition of A.I. Tablut Challenge 2023
  * @author Andrea Castronovo
- * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for github page of project.
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for GitHub page of project.
  */
 public class BlackMain {
 

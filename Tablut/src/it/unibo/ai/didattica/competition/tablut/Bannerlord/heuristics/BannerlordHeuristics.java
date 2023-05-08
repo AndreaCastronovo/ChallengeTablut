@@ -2,12 +2,19 @@ package it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics;
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
+
+/**
+ * <b>BannerlordHeuristics</b> is my heuristics class for the competition of A.I. Tablut Challenge 2023
+ * @author Andrea Castronovo
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for GitHub page of project.
+ */
 public abstract class BannerlordHeuristics {
 
+    /* LOCAL VARIABLE */
     protected State state;
     protected State.Pawn[][] board;
 
-    public static class Bool_Doub{
+    public static class Bool_Doub{      // To have a single variable with 2 type: boolean & double
         boolean bool = true; double doub = 0.0;
 
         public boolean getBool(){
@@ -334,14 +341,12 @@ public abstract class BannerlordHeuristics {
     }
 
     public boolean isBlackNextThrone(int i, int j){
-        int rawBlack = i;
-        int columnBlack = j;
 
-        if (rawBlack == 4){
-            return columnBlack == 3 || columnBlack == 5;
+        if (i == 4){
+            return j == 3 || j == 5;
         }
-        if (columnBlack == 4){
-            return rawBlack == 3 || rawBlack == 5;
+        if (j == 4){
+            return i == 3 || i == 5;
         }
 
         return false;

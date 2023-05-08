@@ -1,12 +1,13 @@
 package it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics;
 
-import it.unibo.ai.didattica.competition.tablut.domain.GameAshtonTablut;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
-import java.util.Arrays;
-
-import static java.lang.Double.NaN;
-
+/**
+ * <b>B_BannerlordHeuristics</b> is my heuristics class for black
+ * client of the competition of A.I. Tablut Challenge 2023
+ * @author Andrea Castronovo
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for GitHub page of project.
+ */
 public class B_BannerlordHeuristics extends BannerlordHeuristics{
     public B_BannerlordHeuristics(State state) {
         super(state);
@@ -17,9 +18,8 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
         int[] kingPos = kingPosition();
 
         /* CHECK IF KING CAN DO SAFE WIN IN TWO MOVES */
-        if (isWinSafe()){
+        if (isWinSafe())
             stateEval = Double.NEGATIVE_INFINITY; // Block white win
-        }
 
         /* TAKE KING CAPTURE */
         Bool_Doub bool_doub = kingCanDie(kingPos, "B");
@@ -32,9 +32,8 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
             stateEval += doub_kingCanDie;
         }
 
-        if (canKingEscape(kingPos)){
+        if (canKingEscape(kingPos))
             stateEval += -30;
-        }
 
         /* MINORITY OF WHITE (POSITIVE) MORE ENEMIES EATEN (NEGATIVE) */
         int numbOfBlack = state.getNumberOf(State.Pawn.BLACK);

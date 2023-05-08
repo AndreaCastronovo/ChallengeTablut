@@ -1,8 +1,13 @@
 package it.unibo.ai.didattica.competition.tablut.Bannerlord.heuristics;
 
-import it.unibo.ai.didattica.competition.tablut.domain.GameAshtonTablut;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
+/**
+ * <b>W_BannerlordHeuristics</b> is my heuristics class for white
+ * client of the competition of A.I. Tablut Challenge 2023
+ * @author Andrea Castronovo
+ * @see <a href="https://github.com/AndreaCastronovo/ChallengeTablut">this</a> for GitHub page of project.
+ */
 public class W_BannerlordHeuristics extends BannerlordHeuristics {
     public W_BannerlordHeuristics(State state) {
         super(state);
@@ -65,6 +70,12 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
         return stateEval;
     }
 
+    /**
+     *
+     * @param kingPos king position
+     * @return check if king is in position [6,4] | [4,6] | [2,4] | [4,2],
+     * only valid if king can do safe win
+     */
     public boolean isKingBeforeWin(int[] kingPos){
         return (kingPos[0] == 6 && kingPos[1] == 4) ||
                 (kingPos[0] == 4 && kingPos[1] == 6) ||
@@ -72,6 +83,13 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
                 (kingPos[0] == 4 && kingPos[1] == 2);
     }
 
+    /**
+     *
+     * @param i raw pisition of pawn (black)
+     * @param j column pisition of pawn (black)
+     * @return double that represent the evaluation of state in case of white pawn can eat a black near to
+     * the citadels
+     */
     public double canWhiteEatBlack_Citadels(int i, int j){
         double eval = 0.0;
 
@@ -178,6 +196,11 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
         return eval;
     }
 
+    /**
+     *
+     * @return double that represent the evaluation of state in case of white pawn
+     * can eat a black surrounded by two white pawn
+     */
     public double canWhiteEatBlack_Surround(int rawBlack, int columnBlack){
         double eval = 0.0;
         int[] blackPos = new int[2];
@@ -217,6 +240,13 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
         return eval;
     }
 
+    /**
+     *
+     * @param i raw pisition of pawn (black)
+     * @param j column pisition of pawn (black)
+     * @return double that represent the evaluation of state in case of white pawn can eat a black near to
+     * the throne
+     */
     public double canWhiteEatBlack_Throne(int i, int j){
         double eval = 0.0;
 
