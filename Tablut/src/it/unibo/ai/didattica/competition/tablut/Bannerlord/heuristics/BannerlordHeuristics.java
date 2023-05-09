@@ -34,6 +34,14 @@ public abstract class BannerlordHeuristics {
         }
     }
 
+    public static class Bool_String{
+        boolean bool = false; String string = "NONE";
+        public boolean getBool(){return this.bool;}
+        public void setBool(boolean bool){this.bool = bool;}
+        public String getString(){return this.string;}
+        public void setString(String string){this.string = string;}
+    }
+
     public BannerlordHeuristics(State state) {
         this.state = state;
         this.board =  state.getBoard();
@@ -44,9 +52,10 @@ public abstract class BannerlordHeuristics {
     }
 
     /**
-     * @return check to see if king can win with 2 moves without being eaten
+     * @return check to see if king can win with 2 moves without being eaten, and the direction of this moves
      */
-    public boolean isWinSafe(){
+    public Bool_String isWinSafe(){
+        Bool_String bool_string = new Bool_String();
         boolean rightSafe = true;
         boolean leftSafe = true;
 
@@ -57,14 +66,15 @@ public abstract class BannerlordHeuristics {
             for(int j = 0; j < 4; j++){
                 // LEFT TO CENTER
                 if (!board[6][j].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
+
                 // RIGHT TO CENTER
                 if (!board[6][(board.length - 1)-j].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
             }
-            if (!board[6][4].equals(State.Pawn.EMPTY) && !board[6][4].equals(State.Pawn.KING)){
-                return false;
-            }
+
+            if (!board[6][4].equals(State.Pawn.EMPTY) && !board[6][4].equals(State.Pawn.KING))
+                return bool_string;
 
             /* RAW 5 CANNOT GIVE POSSIBILITIES AT ENEMIES TO EAT KING */
             for(int j = 0; j < 4; j++){
@@ -79,7 +89,13 @@ public abstract class BannerlordHeuristics {
                 else if (board[5][(board.length - 1)-j].equals(State.Pawn.WHITE))
                     rightSafe = true;
             }
-            return leftSafe && rightSafe;
+
+            if (leftSafe && rightSafe){
+                bool_string.setBool(true);
+                bool_string.setString("BOTTOM");
+            }
+
+            return bool_string;
 
         }else if (board[4][3].equals(State.Pawn.EMPTY)) {
             // MOVES ON LEFT IS ALLOWED
@@ -88,13 +104,13 @@ public abstract class BannerlordHeuristics {
             for(int i = 0; i < 4; i++){
                 // LEFT TO CENTER
                 if (!board[i][2].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
                 // RIGHT TO CENTER
                 if (!board[(board.length - 1)-i][2].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
             }
             if (!board[4][2].equals(State.Pawn.EMPTY) && !board[4][2].equals(State.Pawn.KING)){
-                return false;
+                return bool_string;
             }
 
             /* COLUMN 3 CANNOT GIVE POSSIBILITIES AT ENEMIES TO EAT KING */
@@ -110,7 +126,12 @@ public abstract class BannerlordHeuristics {
                 else if (board[(board.length - 1)-i][3].equals(State.Pawn.WHITE))
                     rightSafe = true;
             }
-            return leftSafe && rightSafe;
+            if (leftSafe && rightSafe){
+                bool_string.setBool(true);
+                bool_string.setString("LEFT");
+            }
+
+            return bool_string;
 
         } else if (board[3][4].equals(State.Pawn.EMPTY)) {
             // MOVES ON TOP IS ALLOWED
@@ -119,13 +140,13 @@ public abstract class BannerlordHeuristics {
             for(int j = 0; j < 4; j++){
                 // LEFT TO CENTER
                 if (!board[2][j].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
                 // RIGHT TO CENTER
                 if (!board[2][(board.length - 1)-j].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
             }
             if (!board[2][4].equals(State.Pawn.EMPTY) && !board[2][4].equals(State.Pawn.KING)){
-                return false;
+                return bool_string;
             }
 
             /* RAW 3 CANNOT GIVE POSSIBILITIES AT ENEMIES TO EAT KING */
@@ -141,7 +162,12 @@ public abstract class BannerlordHeuristics {
                 else if (board[3][(board.length - 1)-j].equals(State.Pawn.WHITE))
                     rightSafe = true;
             }
-            return leftSafe && rightSafe;
+            if (leftSafe && rightSafe){
+                bool_string.setBool(true);
+                bool_string.setString("TOP");
+            }
+
+            return bool_string;
 
 
         } else if (board[4][5].equals(State.Pawn.EMPTY)) {
@@ -151,13 +177,13 @@ public abstract class BannerlordHeuristics {
             for(int i = 0; i < 4; i++){
                 // LEFT TO CENTER
                 if (!board[i][6].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
                 // RIGHT TO CENTER
                 if (!board[(board.length - 1)-i][6].equals(State.Pawn.EMPTY))
-                    return false;
+                    return bool_string;
             }
             if (!board[4][6].equals(State.Pawn.EMPTY) && !board[4][6].equals(State.Pawn.KING)){
-                return false;
+                return bool_string;
             }
 
             /* COLUMN 5 CANNOT GIVE POSSIBILITIES AT ENEMIES TO EAT KING */
@@ -173,11 +199,16 @@ public abstract class BannerlordHeuristics {
                 else if (board[(board.length - 1)-i][5].equals(State.Pawn.WHITE))
                     rightSafe = true;
             }
-            return leftSafe && rightSafe;
+            if (leftSafe && rightSafe){
+                bool_string.setBool(true);
+                bool_string.setString("RIGHT");
+            }
+
+            return bool_string;
 
         }
 
-        return false;
+        return bool_string;
     }
 
     /**

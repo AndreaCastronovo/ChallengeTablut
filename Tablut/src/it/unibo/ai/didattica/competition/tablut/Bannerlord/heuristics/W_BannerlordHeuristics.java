@@ -22,9 +22,13 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
         int[] kingPos = kingPosition();
 
         /* CHECK IF KING CAN DO SAFE WIN IN TWO MOVES */
-        if (isWinSafe()){
+        Bool_String bool_string = isWinSafe();
+        boolean isWinSafe = bool_string.getBool();
+        String direction = bool_string.getString();
+
+        if (isWinSafe){
             stateEval += 900; // LET'S GO WIN
-            if (isKingBeforeWin(kingPos))
+            if (isKingBeforeWin(kingPos, direction))
                 stateEval = Double.MAX_VALUE;
         }
 
@@ -73,14 +77,34 @@ public class W_BannerlordHeuristics extends BannerlordHeuristics {
     /**
      *
      * @param kingPos king position
+     * @param direction direction of king to win safe
      * @return check if king is in position [6,4] | [4,6] | [2,4] | [4,2],
      * only valid if king can do safe win
      */
-    public boolean isKingBeforeWin(int[] kingPos){
-        return (kingPos[0] == 6 && kingPos[1] == 4) ||
-                (kingPos[0] == 4 && kingPos[1] == 6) ||
-                (kingPos[0] == 2 && kingPos[1] == 4) ||
-                (kingPos[0] == 4 && kingPos[1] == 2);
+    public boolean isKingBeforeWin(int[] kingPos, String direction){
+
+        switch (direction){
+            case "UP":
+                if (kingPos[0] == 2 && kingPos[1] == 4)
+                    return true;
+                break;
+            case "BOTTOM":
+                if (kingPos[0] == 6 && kingPos[1] == 4)
+                    return true;
+                break;
+            case "LEFT":
+                if (kingPos[0] == 4 && kingPos[1] == 2)
+                    return true;
+                break;
+            case "RIGHT":
+                if (kingPos[0] == 4 && kingPos[1] == 6)
+                    return true;
+                break;
+            default:
+                return false;
+        }
+
+        return false;
     }
 
     /**

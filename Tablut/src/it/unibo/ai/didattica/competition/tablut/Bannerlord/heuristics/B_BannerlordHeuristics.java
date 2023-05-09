@@ -18,8 +18,9 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
         int[] kingPos = kingPosition();
 
         /* CHECK IF KING CAN DO SAFE WIN IN TWO MOVES */
-        if (isWinSafe())
+        if (isWinSafe().getBool()) {
             stateEval = Double.NEGATIVE_INFINITY; // Block white win
+        }
 
         /* TAKE KING CAPTURE */
         Bool_Doub bool_doub = kingCanDie(kingPos, "B");
@@ -32,19 +33,17 @@ public class B_BannerlordHeuristics extends BannerlordHeuristics{
             stateEval += doub_kingCanDie;
         }
 
-        if (canKingEscape(kingPos))
-            stateEval += -30;
-
         /* MINORITY OF WHITE (POSITIVE) MORE ENEMIES EATEN (NEGATIVE) */
         int numbOfBlack = state.getNumberOf(State.Pawn.BLACK);
         int numbOfWhite = state.getNumberOf(State.Pawn.WHITE);
         double blackAlive = (double) numbOfBlack/16;
         double whiteAlive = (double) numbOfWhite/8;
-        stateEval += (0.99 - whiteAlive) * 200;
+        stateEval += (1.01 - whiteAlive) * 200;
         stateEval += (blackAlive - 0.9) * 60;
 
-        if(Double.isNaN(stateEval))
+        if(Double.isNaN(stateEval)) {
             stateEval = Double.NEGATIVE_INFINITY;
+        }
 
         return stateEval;
     }
