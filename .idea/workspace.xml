@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ChallengeTablut:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="85d8d735-4ac0-49dd-afa2-dc639d1b267c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/B_BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/B_BannerlordHeuristics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/BannerlordHeuristics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/W_BannerlordHeuristics.java" beforeDir="false" afterPath="$PROJECT_DIR$/Tablut/src/it/unibo/ai/didattica/competition/tablut/Bannerlord/heuristics/W_BannerlordHeuristics.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +47,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "last_opened_file_path": "/home/andrea/Scrivania/ChallengeTablut_Gionnino9000",
-    "project.structure.last.edited": "Facets",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
@@ -57,7 +59,7 @@
       <recent name="$PROJECT_DIR$/Tablut/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BlackMain">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="BlackMain" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="it.unibo.ai.didattica.competition.tablut.Bannerlord.BlackMain" />
       <module name="ChallengeTablut" />
